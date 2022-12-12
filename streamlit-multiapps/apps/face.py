@@ -77,7 +77,7 @@ def app():
                         help='save results to *.txt')
     parser.add_argument('--save-conf', action='store_true',
                         help='save confidences in --save-txt labels')
-    parser.add_argument('--nosave', action='store_true',
+    parser.add_argument('--nosave', action='store_false',
                         help='do not save images/videos')
     parser.add_argument('--classes', nargs='+', type=int,
                         help='filter by class: --class 0, or --class 0 2 3')
@@ -119,7 +119,7 @@ def app():
                 st.video(uploaded_file)
                 #with open(os.path.join("yolov5","data", "video",uploaded_file.name), "wb") as f:
                     #f.write(uploaded_file.getbuffer())
-                opt.source = uploaded_file.getbuffer()
+                opt.source = str(uploaded_file.getbuffer())
         else:
             is_valid = False
     else:
