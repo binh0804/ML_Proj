@@ -107,8 +107,8 @@ def app():
             with st.spinner(text='Đang tải ảnh lên...'):
                 st.image(uploaded_file)
                 picture = Image.open(uploaded_file)
-                picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
-                opt.source = f'yolov5/data/images/{uploaded_file.name}'
+                #picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
+                opt.source = uploaded_file.getbuffer()
         else:
             is_valid = False
     elif source_index==1:
@@ -117,8 +117,8 @@ def app():
             is_valid = True
             with st.spinner(text='Đang tải video lên...'):
                 st.video(uploaded_file)
-                with open(os.path.join("yolov5","data", "video",uploaded_file.name), "wb") as f:
-                    f.write(uploaded_file.getbuffer())
+                #with open(os.path.join("yolov5","data", "video",uploaded_file.name), "wb") as f:
+                    #f.write(uploaded_file.getbuffer())
                 opt.source = uploaded_file.getbuffer()
         else:
             is_valid = False
