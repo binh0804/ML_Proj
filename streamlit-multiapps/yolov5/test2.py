@@ -15,14 +15,14 @@ from yolov5.utils.plots import plot_one_box
 from yolov5.utils.torch_utils import select_device, load_classifier, time_synchronized
 
 
-def detect(opt, save_img=False, MSG_POKER = {}):
+def detect(opt, save_img=False, MSG_POKER = {},temp_frame = []):
 
     source, weights, view_img, save_txt, imgsz = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size
     save_img = not opt.nosave and not source.endswith(
         '.txt')  # save inference images
-    # webcam = source.endswith('.txt') or source.lower().startswith(
-    #     ('rtsp://', 'rtmp://', 'http://', 'https://')) #or source.isnumeric()
-    webcam = False
+    webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
+        ('rtsp://', 'rtmp://', 'http://', 'https://'))
+
     # Directories
     save_dir = Path(increment_path(Path(opt.project) / opt.name,
                                    exist_ok=opt.exist_ok))  # increment run
@@ -53,7 +53,7 @@ def detect(opt, save_img=False, MSG_POKER = {}):
     if webcam:
         view_img = check_imshow()
         cudnn.benchmark = True  # set True to speed up constant image size inference
-        dataset = LoadStreams(sources = source, img_size=imgsz, stride=stride)
+        dataset = LoadStreams(sources = str(source), img_size=imgsz, stride=stride)
     else:
         dataset = LoadImages(source, img_size=imgsz, stride=stride)
 
@@ -68,6 +68,7 @@ def detect(opt, save_img=False, MSG_POKER = {}):
     t0 = time.time()
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
+        img = temp_frame
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if img.ndimension() == 3:

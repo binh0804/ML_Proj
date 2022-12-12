@@ -98,7 +98,7 @@ def app():
     source = ("Hình ảnh", "Video")
     source_index = st.sidebar.selectbox("Chọn đầu vào", range(
         len(source)), format_func=lambda x: source[x])
-
+    temp_frame = []
     if source_index == 0:
         uploaded_file = st.file_uploader(
             "Load an image", type=['png', 'jpeg', 'jpg'])
@@ -108,7 +108,7 @@ def app():
                 st.image(uploaded_file)
                 picture = Image.open(uploaded_file)
                 #picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
-                opt.source = picture
+                temp_frame = picture
         else:
             is_valid = False
     elif source_index==1:
