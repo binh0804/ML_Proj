@@ -46,8 +46,8 @@ def app():
     st.write('3) footage from my cctv.')
     cols = st.columns(2) # number of columns in each row! = 2
     # first column of the ith row
-    cols[0].image('1.png', use_column_width=True)
-    cols[1].image('117.png', use_column_width=True)
+    cols[0].image('https://user-images.githubusercontent.com/26833433/127574988-6a558aa1-d268-44b9-bf6b-62d4c605cc72.jpg', use_column_width=True)
+    cols[1].image('https://user-images.githubusercontent.com/26833433/127574988-6a558aa1-d268-44b9-bf6b-62d4c605cc72.jpg', use_column_width=True)
 
     st.write('## 2. References :bank: :bangbang: ')
     st.write('  1. Python')
