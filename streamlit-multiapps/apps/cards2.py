@@ -31,8 +31,8 @@ def get_detection_folder():
 
 
 def app():
-    with open('static/style.css','r') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    # with open('static/style.css','r') as f:
+    #     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     st.title('Poker Cards Recognization')
     st.write('#### What is cards?')
     st.write('## 1. Overview :icecream: :tada: :star-struck: ')

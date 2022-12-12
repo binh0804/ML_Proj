@@ -4,8 +4,8 @@ import numpy as np
 
 
 def app():
-    with open('static/style.css','r') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    # with open('static/style.css','r') as f:
+    #     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
     
     st.write("# MACHINE LEARNING PROJECT")
