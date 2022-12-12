@@ -2,7 +2,7 @@ from io import StringIO
 from pathlib import Path
 import streamlit as st
 import cv2
-from yolov5.test2 import detect
+from  test2 import detect
 import os
 import numpy as np
 import pandas as pd
