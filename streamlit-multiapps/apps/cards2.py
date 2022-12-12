@@ -43,10 +43,10 @@ def app():
     )
     cols = st.columns(4)  # number of columns in each row! = 2
     # first column of the ith row
-    cols[0].image("spade.png", use_column_width=True)
-    cols[1].image("cludes.png", use_column_width=True)
-    cols[2].image("diamond.png", use_column_width=True)
-    cols[3].image("heart.png", use_column_width=True)
+    cols[0].image("streamlit-multiapps/spade.png", use_column_width=True)
+    cols[1].image("streamlit-multiapps/cludes.png", use_column_width=True)
+    cols[2].image("streamlit-multiapps/diamond.png", use_column_width=True)
+    cols[3].image("streamlit-multiapps/heart.png", use_column_width=True)
 
     st.write(
         "  * Each set includes 13 cards from 2 to 10 with numbers cards and 4 special cards KING, QUEEN, JACK, ACES"
