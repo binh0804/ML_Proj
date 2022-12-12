@@ -85,7 +85,7 @@ def create_dataloader(path, imgsz, batch_size, stride, opt, hyp=None, augment=Fa
     return dataloader, dataset
 
 
-class InfiniteDataLoader(torch.  data.dataloader.DataLoader):
+class InfiniteDataLoader(torch.utils.data.dataloader.DataLoader):
     """ Dataloader that reuses workers
 
     Uses same syntax as vanilla DataLoader
