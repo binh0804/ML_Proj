@@ -53,7 +53,7 @@ def detect(opt, save_img=False, MSG_POKER = {}):
     if webcam:
         view_img = check_imshow()
         cudnn.benchmark = True  # set True to speed up constant image size inference
-        dataset = LoadStreams(sources = str(source), img_size=imgsz, stride=stride)
+        dataset = LoadStreams(sources = source, img_size=imgsz, stride=stride)
     else:
         dataset = LoadImages(source, img_size=imgsz, stride=stride)
 
