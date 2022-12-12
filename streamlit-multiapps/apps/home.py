@@ -4,7 +4,7 @@ import numpy as np
 
 
 def app():
-    with open('apps/style.css') as f:
+    with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
     
