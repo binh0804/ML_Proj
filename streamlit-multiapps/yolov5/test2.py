@@ -20,9 +20,9 @@ def detect(opt, save_img=False, MSG_POKER = {}):
     source, weights, view_img, save_txt, imgsz = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size
     save_img = not opt.nosave and not source.endswith(
         '.txt')  # save inference images
-    webcam = source.endswith('.txt') or source.lower().startswith(
-        ('rtsp://', 'rtmp://', 'http://', 'https://')) #or source.isnumeric()
-
+    # webcam = source.endswith('.txt') or source.lower().startswith(
+    #     ('rtsp://', 'rtmp://', 'http://', 'https://')) #or source.isnumeric()
+    webcam = False
     # Directories
     save_dir = Path(increment_path(Path(opt.project) / opt.name,
                                    exist_ok=opt.exist_ok))  # increment run
