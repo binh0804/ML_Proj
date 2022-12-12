@@ -21,12 +21,12 @@ if str(ROOT) not in sys.path:
 if platform.system() != 'Windows':
     ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
-from models.common import *
-from models.experimental import *
-from utils.autoanchor import check_anchor_order
-from utils.general import LOGGER, check_version, check_yaml, make_divisible, print_args
-from utils.plots import feature_visualization
-from utils.torch_utils import (fuse_conv_and_bn, initialize_weights, model_info, profile, scale_img, select_device,
+from   common import *
+from   experimental import *
+from   autoanchor import check_anchor_order
+from   general import LOGGER, check_version, check_yaml, make_divisible, print_args
+from   plots import feature_visualization
+from   torch_utils import (fuse_conv_and_bn, initialize_weights, model_info, profile, scale_img, select_device,
                                time_sync)
 
 try:
@@ -284,7 +284,7 @@ class ClassificationModel(BaseModel):
         m = model.model[-1]  # last layer
         ch = m.conv.in_channels if hasattr(m, 'conv') else m.cv1.conv.in_channels  # ch into module
         c = Classify(ch, nc)  # Classify()
-        c.i, c.f, c.type = m.i, m.f, 'models.common.Classify'  # index, from, type
+        c.i, c.f, c.type = m.i, m.f, '  common.Classify'  # index, from, type
         model.model[-1] = c  # replace
         self.model = model.model
         self.stride = model.stride

@@ -17,12 +17,12 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image, ExifTags
-from torch.utils.data import Dataset
+from torch.  data import Dataset
 from tqdm import tqdm
 
-from  utils.general import check_requirements, xyxy2xywh, xywh2xyxy, xywhn2xyxy, xyn2xy, segment2box, segments2boxes, \
+from    general import check_requirements, xyxy2xywh, xywh2xyxy, xywhn2xyxy, xyn2xy, segment2box, segments2boxes, \
     resample_segments, clean_str
-from  utils.torch_utils import torch_distributed_zero_first
+from    torch_utils import torch_distributed_zero_first
 
 # Parameters
 help_url = 'https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data'
@@ -73,9 +73,9 @@ def create_dataloader(path, imgsz, batch_size, stride, opt, hyp=None, augment=Fa
 
     batch_size = min(batch_size, len(dataset))
     nw = min([os.cpu_count() // world_size, batch_size if batch_size > 1 else 0, workers])  # number of workers
-    sampler = torch.utils.data.distributed.DistributedSampler(dataset) if rank != -1 else None
-    loader = torch.utils.data.DataLoader if image_weights else InfiniteDataLoader
-    # Use torch.utils.data.DataLoader() if dataset.properties will update during training else InfiniteDataLoader()
+    sampler = torch.  data.distributed.DistributedSampler(dataset) if rank != -1 else None
+    loader = torch.  data.DataLoader if image_weights else InfiniteDataLoader
+    # Use torch.  data.DataLoader() if dataset.properties will update during training else InfiniteDataLoader()
     dataloader = loader(dataset,
                         batch_size=batch_size,
                         num_workers=nw,
@@ -85,7 +85,7 @@ def create_dataloader(path, imgsz, batch_size, stride, opt, hyp=None, augment=Fa
     return dataloader, dataset
 
 
-class InfiniteDataLoader(torch.utils.data.dataloader.DataLoader):
+class InfiniteDataLoader(torch.  data.dataloader.DataLoader):
     """ Dataloader that reuses workers
 
     Uses same syntax as vanilla DataLoader
@@ -1006,7 +1006,7 @@ def flatten_recursive(path='../coco128'):
         shutil.copyfile(file, new_path / Path(file).name)
 
 
-def extract_boxes(path='../coco128/'):  # from utils.datasets import *; extract_boxes('../coco128')
+def extract_boxes(path='../coco128/'):  # from   datasets import *; extract_boxes('../coco128')
     # Convert detection dataset into classification dataset, with one directory per class
 
     path = Path(path)  # images dir
@@ -1043,7 +1043,7 @@ def extract_boxes(path='../coco128/'):  # from utils.datasets import *; extract_
 
 def autosplit(path='../coco128', weights=(0.9, 0.1, 0.0), annotated_only=False):
     """ Autosplit a dataset into train/val/test splits and save path/autosplit_*.txt files
-    Usage: from utils.datasets import *; autosplit('../coco128')
+    Usage: from   datasets import *; autosplit('../coco128')
     Arguments
         path:           Path to images directory
         weights:        Train, val, test weights (list)
