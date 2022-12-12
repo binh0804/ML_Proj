@@ -1,0 +1,12 @@
+{
+    "ROYAL FLUSH":"Xì tố",
+    "STRAIGHT FLUSH":"Thùng phá sảnh",    
+    "FLUSH":"Thùng",    
+    "FOUR OF A KIND":"Tứ quý",
+    "FULL HOUSE":"Cù lũ",
+    "STRAIGHT":"Sảnh",
+    "THREE OF A KIND":"Bộ ba",    
+    "TWO PAIR":"Hai đôi",    
+    "PAIR":"Đôi",
+    "HIGH CARD":"Mậu thầu"
+}
