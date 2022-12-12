@@ -32,7 +32,7 @@ def get_detection_folder():
 
 
 def app():
-    with open('style.css') as f:
+    with open('static/style.css','r') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     st.title('Face detection')
     st.write('## 1. Dataset :cat: :duck: :dog: ')
