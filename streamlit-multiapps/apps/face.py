@@ -119,7 +119,7 @@ def app():
                 st.video(uploaded_file)
                 with open(os.path.join("yolov5","data", "video",uploaded_file.name), "wb") as f:
                     f.write(uploaded_file.getbuffer())
-                opt.source = f'yolov5/data/video/{uploaded_file.name}'
+                opt.source = uploaded_file.getbuffer()
         else:
             is_valid = False
     else:
