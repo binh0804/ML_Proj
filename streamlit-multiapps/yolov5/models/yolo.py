@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
 if platform.system() != "Windows":
     ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
+
 from yolov5.models.common import *
 from yolov5.models.experimental import *
 from yolov5.utils.autoanchor import check_anchor_order
@@ -41,6 +42,7 @@ from yolov5.utils.torch_utils import (
     select_device,
     time_sync,
 )
+
 
 try:
     import thop  # for FLOPs computation

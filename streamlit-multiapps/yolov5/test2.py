@@ -77,7 +77,9 @@ def detect(opt, save_img=True, MSG_POKER={}):
     if webcam:
         view_img = check_imshow()
         cudnn.benchmark = True  # set True to speed up constant image size inference
+
         dataset = LoadStreams(sources=source, img_size=imgsz, stride=stride)
+
     else:
         dataset = LoadImages(source, img_size=imgsz, stride=stride)
 
@@ -93,10 +95,11 @@ def detect(opt, save_img=True, MSG_POKER={}):
     t0 = time.time()
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
-        img = img.half() if half else img.float()  # uint8 to fp16/32
-        img /= 255.0  # 0 - 255 to 0.0 - 1.0
-        if img.ndimension() == 3:
-            img = img.unsqueeze(0)
+        img = temp_frame
+        #img = img.half() if half else img.float()  # uint8 to fp16/32
+        #img /= 255.0  # 0 - 255 to 0.0 - 1.0
+        #if img.ndimension() == 3:
+        #img = img.unsqueeze(0)
 
         # Inference
         t1 = time_synchronized()
@@ -249,7 +252,7 @@ def detect(opt, save_img=True, MSG_POKER={}):
             # Stream results
             if view_img:
                 cv2.imshow(str(p), im0)
-                cv2.waitKey(1)  # 1 millisecond
+                #cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
             if save_img:

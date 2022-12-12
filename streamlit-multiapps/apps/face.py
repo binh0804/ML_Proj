@@ -69,6 +69,7 @@ def app():
     st.write("")
 
     parser = argparse.ArgumentParser()
+
     parser.add_argument(
         "--weights",
         nargs="+",
@@ -124,6 +125,7 @@ def app():
         "Chọn đầu vào", range(len(source)), format_func=lambda x: source[x]
     )
 
+
     if source_index == 0:
         uploaded_file = st.file_uploader("Load an image", type=["png", "jpeg", "jpg"])
         if uploaded_file is not None:
@@ -132,11 +134,13 @@ def app():
                 st.image(uploaded_file)
                 picture = Image.open(uploaded_file)
 
+
                 tfile = tempfile.NamedTemporaryFile(delete=False, suffix='.jpeg')
 
 
                 picture = picture.save(tfile.name)
                 opt.source = tfile.name
+
         else:
             is_valid = False
     elif source_index == 1:
@@ -145,11 +149,14 @@ def app():
             is_valid = True
             with st.spinner(text="Đang tải video lên..."):
                 st.video(uploaded_file)
+
  
                 tfile = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
                 tfile.write(uploaded_file.getbuffer())
 
                 opt.source = tfile.name
+
+
         else:
             is_valid = False
     else:
@@ -178,7 +185,7 @@ def app():
         else:
             if st.button("Loading..."):
                 processed = False
-                MSG_POKER = detect(opt)
+                MSG_POKER = detect(opt,Image.open(temp_frame))
                 if source_index == 0:
                     with st.spinner(text="Preparing Images"):
                         for img in os.listdir(get_detection_folder()):
