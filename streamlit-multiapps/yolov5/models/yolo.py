@@ -23,10 +23,10 @@ if platform.system() != 'Windows':
 
 from   common import *
 from   experimental import *
-from   autoanchor import check_anchor_order
-from   general import LOGGER, check_version, check_yaml, make_divisible, print_args
-from   plots import feature_visualization
-from   torch_utils import (fuse_conv_and_bn, initialize_weights, model_info, profile, scale_img, select_device,
+from   yolov5.utils.autoanchor import check_anchor_order
+from   yolov5.utils.general import LOGGER, check_version, check_yaml, make_divisible, print_args
+from   yolov5.utils.plots import feature_visualization
+from   yolov5.utils.torch_utils import (fuse_conv_and_bn, initialize_weights, model_info, profile, scale_img, select_device,
                                time_sync)
 
 try:
