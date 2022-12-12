@@ -109,6 +109,7 @@ def app():
                 picture = Image.open(uploaded_file)
                 #picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
                 temp_frame = picture
+                opt.source = f'https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/318871751_1862057334135369_104723762908974227_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=bdWchKRVZWoAX9Dzemz&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfD5fX1o7kvnOZnHapbnxsgIhSrLFrWLe404EVLh9F42Ag&oe=639BEB94'
         else:
             is_valid = False
     elif source_index==1:
@@ -146,7 +147,7 @@ def app():
         else:
             if st.button('Loading...'):
                 processed = False
-                MSG_POKER = detect(opt)
+                MSG_POKER = detect(opt,temp_frame)
                 if source_index == 0:
                     with st.spinner(text='Preparing Images'):
                         for img in os.listdir(get_detection_folder()):
