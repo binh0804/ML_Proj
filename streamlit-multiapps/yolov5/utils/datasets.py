@@ -318,9 +318,9 @@ class LoadStreams:  # multiple IP or RTSP cameras
     def __next__(self):
         self.count += 1
         img0 = self.imgs.copy()
-        if cv2.waitKey(1) == ord('q'):  # q to quit
-            cv2.destroyAllWindows()
-            raise StopIteration
+        # if cv2.waitKey(1) == ord('q'):  # q to quit
+        #     cv2.destroyAllWindows()
+        #     raise StopIteration
 
         # Letterbox
         img = [letterbox(x, self.img_size, auto=self.rect, stride=self.stride)[0] for x in img0]
