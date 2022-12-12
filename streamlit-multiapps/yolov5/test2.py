@@ -26,15 +26,17 @@ from yolov5.utils.plots import plot_one_box
 from yolov5.utils.torch_utils import select_device, load_classifier, time_synchronized
 
 
-def detect(opt, save_img=False, MSG_POKER={}):
+def detect(opt, save_img=True, MSG_POKER={}):
 
     source, weights, view_img, save_txt, imgsz = (
         opt.source,
         opt.weights,
         opt.view_img,
         opt.save_txt,
-        opt.img_size,
+        640
     )
+
+    print(opt)
     save_img = not opt.nosave and not source.endswith(".txt")  # save inference images
     webcam = (
         source.isnumeric()
@@ -161,83 +163,86 @@ def detect(opt, save_img=False, MSG_POKER={}):
                             color=colors[int(cls)],
                             line_thickness=3,
                         )
-                cards = [names[int(c)] for c in det[:, -1].unique()]
-                if len(cards) == 5:
-                    cards_suit = [c[-1] for c in cards]
-                    cards_rank = [
-                        11
-                        if c[:-1] == "J"
-                        else 12
-                        if c[:-1] == "Q"
-                        else 13
-                        if c[:-1] == "K"
-                        else 14
-                        if c[:-1] == "A"
-                        else int(c[:-1])
-                        for c in cards
-                    ]
-                    text = None
-                    if len(set(cards_suit)) == 1:  # one of flushes
-                        if (
-                            max(cards_rank) - min(cards_rank) == 4
-                        ):  # Royal or straight flush
-                            if max(cards_rank) == 14:
-                                text = "ROYAL FLUSH"
-                                color = (0, 255, 255)
+                try:
+                    cards = [names[int(c)] for c in det[:, -1].unique()]
+                    if len(cards) == 5:
+                        cards_suit = [c[-1] for c in cards]
+                        cards_rank = [
+                            11
+                            if c[:-1] == "J"
+                            else 12
+                            if c[:-1] == "Q"
+                            else 13
+                            if c[:-1] == "K"
+                            else 14
+                            if c[:-1] == "A"
+                            else int(c[:-1])
+                            for c in cards
+                        ]
+                        text = None
+                        if len(set(cards_suit)) == 1:  # one of flushes
+                            if (
+                                max(cards_rank) - min(cards_rank) == 4
+                            ):  # Royal or straight flush
+                                if max(cards_rank) == 14:
+                                    text = "ROYAL FLUSH"
+                                    color = (0, 255, 255)
+                                else:
+                                    text = "STRAIGHT FLUSH"
+                                    color = (128, 0, 128)
+                            else:  # flush
+                                text = "FLUSH"
+                                color = (255, 0, 0)
+
+                        elif len(set(cards_rank)) == 2:
+                            _, counts_elements = unique(cards_rank, return_counts=True)
+                            if 4 in counts_elements:  # 4 of a kind
+                                text = "FOUR OF A KIND"
+                                color = (0, 255, 0)
+                            else:  # Full house
+                                text = "FULL HOUSE"
+                                color = (0, 0, 255)
+
+                        elif (
+                            len(set(cards_rank)) == 5
+                            and max(cards_rank) - min(cards_rank) == 4
+                        ):  # Straight
+                            text = "STRAIGHT"
+                            color = (238, 238, 0)
+
+                        elif len(set(cards_rank)) == 3:
+                            _, counts_elements = unique(cards_rank, return_counts=True)
+                            if 3 in counts_elements:
+                                text = "THREE OF A KIND"
+                                color = (0, 69, 255)
                             else:
-                                text = "STRAIGHT FLUSH"
-                                color = (128, 0, 128)
-                        else:  # flush
-                            text = "FLUSH"
-                            color = (255, 0, 0)
-
-                    elif len(set(cards_rank)) == 2:
-                        _, counts_elements = unique(cards_rank, return_counts=True)
-                        if 4 in counts_elements:  # 4 of a kind
-                            text = "FOUR OF A KIND"
-                            color = (0, 255, 0)
-                        else:  # Full house
-                            text = "FULL HOUSE"
-                            color = (0, 0, 255)
-
-                    elif (
-                        len(set(cards_rank)) == 5
-                        and max(cards_rank) - min(cards_rank) == 4
-                    ):  # Straight
-                        text = "STRAIGHT"
-                        color = (238, 238, 0)
-
-                    elif len(set(cards_rank)) == 3:
-                        _, counts_elements = unique(cards_rank, return_counts=True)
-                        if 3 in counts_elements:
-                            text = "THREE OF A KIND"
-                            color = (0, 69, 255)
-                        else:
-                            text = "TWO PAIR"
+                                text = "TWO PAIR"
+                                color = (50, 205, 50)
+                        elif len(set(cards_rank)) == 4:
+                            text = "PAIR"
                             color = (50, 205, 50)
-                    elif len(set(cards_rank)) == 4:
-                        text = "PAIR"
-                        color = (50, 205, 50)
-                    else:
-                        text = "HIGH CARD"
-                        color = (50, 205, 50)
+                        else:
+                            text = "HIGH CARD"
+                            color = (50, 205, 50)
 
-                    if text:
-                        MSG_POKER[text] = MSG_POKER.get(text, 0) + 1
-                        text_size = cv2.getTextSize(
-                            text, cv2.FONT_HERSHEY_SIMPLEX, 1.5, 5
-                        )[0]
-                        text_x = (640 - text_size[0]) // 2
-                        cv2.putText(
-                            im0,
-                            text,
-                            (text_x, 50),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            1.5,
-                            color,
-                            5,
-                            cv2.LINE_AA,
-                        )
+                        if text:
+                            MSG_POKER[text] = MSG_POKER.get(text, 0) + 1
+                            text_size = cv2.getTextSize(
+                                text, cv2.FONT_HERSHEY_SIMPLEX, 1.5, 5
+                            )[0]
+                            text_x = (640 - text_size[0]) // 2
+                            cv2.putText(
+                                im0,
+                                text,
+                                (text_x, 50),
+                                cv2.FONT_HERSHEY_SIMPLEX,
+                                1.5,
+                                color,
+                                5,
+                                cv2.LINE_AA,
+                            )
+                except Exception as e:
+                    pass
             # Print time (inference + NMS)
             # print(f'{s}Done. ({t2 - t1:.3f}s)')
 
@@ -263,7 +268,7 @@ def detect(opt, save_img=False, MSG_POKER={}):
                             fps, w, h = 30, im0.shape[1], im0.shape[0]
                             save_path += ".mp4"
                         vid_writer = cv2.VideoWriter(
-                            save_path, cv2.VideoWriter_fourcc(*"avc1"), fps, (w, h)
+                            save_path, cv2.VideoWriter_fourcc(*"mp4v"), 15, (300, 300)
                         )
                     vid_writer.write(im0)
 

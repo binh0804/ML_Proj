@@ -10,7 +10,8 @@ import av
 import argparse
 from PIL import Image
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
-
+import tempfile
+from glob import glob
 
 def get_subdirs(b="."):
     """
@@ -130,8 +131,12 @@ def app():
             with st.spinner(text="Đang tải ảnh lên..."):
                 st.image(uploaded_file)
                 picture = Image.open(uploaded_file)
-                picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
-                opt.source = f'yolov5/data/images/{uploaded_file.name}'
+
+                tfile = tempfile.NamedTemporaryFile(delete=False, suffix='.jpeg')
+
+
+                picture = picture.save(tfile.name)
+                opt.source = tfile.name
         else:
             is_valid = False
     elif source_index == 1:
@@ -140,9 +145,11 @@ def app():
             is_valid = True
             with st.spinner(text="Đang tải video lên..."):
                 st.video(uploaded_file)
-                # with open(os.path.join("yolov5","data", "video",uploaded_file.name), "wb") as f:
-                # f.write(uploaded_file.getbuffer())
-                opt.source = uploaded_file.getbuffer()
+ 
+                tfile = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
+                tfile.write(uploaded_file.getbuffer())
+
+                opt.source = tfile.name
         else:
             is_valid = False
     else:
@@ -175,6 +182,7 @@ def app():
                 if source_index == 0:
                     with st.spinner(text="Preparing Images"):
                         for img in os.listdir(get_detection_folder()):
+                            print(str(Path(f"{get_detection_folder()}") / img))
                             st.image(str(Path(f"{get_detection_folder()}") / img))
                         st.balloons()
                         processed = False
@@ -182,7 +190,9 @@ def app():
                 elif source_index == 1:
 
                     with st.spinner(text="Preparing Video"):
-                        for vid in os.listdir(get_detection_folder()):
-                            st.video(str(Path(f"{get_detection_folder()}") / vid))
+                        for vid in glob(get_detection_folder() + '/*.mp4'):
+                            print(vid)
+                            with open(vid, 'r') as f:
+                                st.video(vid)
                         st.balloons()
                         processed = True
