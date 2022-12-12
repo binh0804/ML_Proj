@@ -22,7 +22,7 @@ if platform.system() != 'Windows':
     ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 from   models.common import *
-from   experimental import *
+from   models.experimental import *
 from   yolov5.utils.autoanchor import check_anchor_order
 from   yolov5.utils.general import LOGGER, check_version, check_yaml, make_divisible, print_args
 from   yolov5.utils.plots import feature_visualization
