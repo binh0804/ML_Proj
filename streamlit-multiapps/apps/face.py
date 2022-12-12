@@ -108,7 +108,7 @@ def app():
                 st.image(uploaded_file)
                 picture = Image.open(uploaded_file)
                 #picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
-                opt.source = uploaded_file.getbuffer()
+                opt.source = picture
         else:
             is_valid = False
     elif source_index==1:
