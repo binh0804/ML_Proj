@@ -7,12 +7,12 @@ import torch
 import torch.backends.cudnn as cudnn
 from numpy import random, unique
 from numpy import asarray
-from   datasets import LoadStreams, LoadImages
-from   experimental import attempt_load
+from yolov5.utils.datasets import LoadStreams, LoadImages
+from yolov5.models.experimental import attempt_load
 
-from   general import check_img_size, check_requirements, check_imshow, non_max_suppression, apply_classifier, scale_boxes, xyxy2xywh, strip_optimizer, set_logging, increment_path
-from   plots import plot_one_box
-from   torch_utils import select_device, load_classifier, time_synchronized
+from yolov5.utils.general import check_img_size, check_requirements, check_imshow, non_max_suppression, apply_classifier, scale_boxes, xyxy2xywh, strip_optimizer, set_logging, increment_path
+from yolov5.utils.plots import plot_one_box
+from yolov5.utils.torch_utils import select_device, load_classifier, time_synchronized
 
 
 def detect(opt, save_img=False, MSG_POKER = {}):
