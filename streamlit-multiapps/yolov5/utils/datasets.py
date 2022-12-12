@@ -17,7 +17,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image, ExifTags
-from torch.  data import Dataset
+from torch.utils.data import Dataset
 from tqdm import tqdm
 
 from    general import check_requirements, xyxy2xywh, xywh2xyxy, xywhn2xyxy, xyn2xy, segment2box, segments2boxes, \
