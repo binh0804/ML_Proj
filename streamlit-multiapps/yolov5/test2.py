@@ -71,8 +71,8 @@ def detect(opt, save_img=False, MSG_POKER = {},temp_frame = []):
         img = temp_frame
         #img = img.half() if half else img.float()  # uint8 to fp16/32
         #img /= 255.0  # 0 - 255 to 0.0 - 1.0
-        if img.ndimension() == 3:
-            img = img.unsqueeze(0)
+        #if img.ndimension() == 3:
+        img = img.unsqueeze(0)
 
         # Inference
         t1 = time_synchronized()
