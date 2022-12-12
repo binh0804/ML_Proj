@@ -130,8 +130,8 @@ def app():
             with st.spinner(text="Đang tải ảnh lên..."):
                 st.image(uploaded_file)
                 picture = Image.open(uploaded_file)
-                # picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
-                opt.source = picture
+                picture = picture.save(f'yolov5/data/images/{uploaded_file.name}')
+                opt.source = f'yolov5/data/images/{uploaded_file.name}'
         else:
             is_valid = False
     elif source_index == 1:
